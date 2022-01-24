@@ -1,3 +1,19 @@
+// $(window).on('load', function(){
+//     $('.loading').delay(3000).fadeOut()
+// })
+var loadcount = 0;
+var countstop=setInterval(add, 25)
+function add() {
+    loadcount++
+    if (loadcount>100) {
+        clearInterval(countstop)
+        $('.loading').delay(100).fadeOut()
+        return false
+    }
+    $('.loading p').text(loadcount+'%')
+}
+
+
 $('html, body').stop().animate({
     scrollTop : 0
 }, 1000)
@@ -142,7 +158,7 @@ $('#sect3 ul li a').on('click', function(){
     var title = $(this).attr('title')
     var src = $(this).find('img').attr('src')
     var alt = $(this).find('img').attr('alt')
-    $('body').append(`<div class="outLayer"><div class="inLayer"><h2>${title}</h2><div><a href="${href}" target="_blank"><img src="${src}" alt="${alt}"></a></div></div><button type="button">닫기</button></div>`)
+    $('body').append(`<div class="outLayer"><div class="inLayer"><h2>${title}</h2><div><img src="${src}" alt="${alt}"><a href="${href}" target="_blank">사이트이동</a></div></div><button type="button">닫기</button></div>`)
     $('.outLayer').css({
         position:'fixed',
         top:0, left:0, right:0, bottom:0,
@@ -164,9 +180,17 @@ $('#sect3 ul li a').on('click', function(){
         fontSize:'30px',
         color:'white'
     })
+    $('.inLayer a').css({
+        border:'2px solid #f00',
+        display:'block',
+        padding:'10px 20px',
+        background:'blue',
+        width:'200px',
+        fontSize:'20px',
+        margin:'10px auto'
+    })
     return false
 })
-
 $(document).on('click', '.outLayer button, .outLayer',function(){
     $('.outLayer').remove()
 })
